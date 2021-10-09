@@ -4,7 +4,7 @@ defmodule Elibar.Catalog do
 
   schema "beers" do
     field :beer, :string
-    field :branch, :string
+    field :brand, :string
     field :origin, :string
     field :quantity, :integer
     field :style, :string
@@ -15,7 +15,7 @@ defmodule Elibar.Catalog do
   @doc false
   def changeset(catalog, attrs) do
     catalog
-    |> cast(attrs, [:beer, :branch, :origin, :style, :quantity])
-    |> validate_required([:beer, :branch, :origin, :style, :quantity])
+    |> cast(attrs, [:beer, :brand, :origin, :style, :quantity])
+    |> validate_required([:beer, :brand, :origin, :style, :quantity])
   end
 end
