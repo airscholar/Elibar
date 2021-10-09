@@ -3,11 +3,11 @@ defmodule ElibarWeb.BeerView do
   alias ElibarWeb.BeerView
 
   def render("index.json", %{beers: beers}) do
-    %{data: render_many(beers, BeerView, "beer.json")}
+    %{result: render_many(beers, BeerView, "beer.json")}
   end
 
   def render("show.json", %{beer: beer}) do
-    %{data: render_one(beer, BeerView, "beer.json")}
+    %{result: render_one(beer, BeerView, "beer.json")}
   end
 
   def render("beer.json", %{beer: beer}) do
@@ -18,5 +18,9 @@ defmodule ElibarWeb.BeerView do
       style: beer.style,
       quantity: beer.quantity
     }
+  end
+
+  def render("deleted.json", %{beer_id: id}) do
+    %{result: "Beer with ID `" <> id <> "` deleted successfully!"}
   end
 end

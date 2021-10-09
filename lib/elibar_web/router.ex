@@ -7,6 +7,16 @@ defmodule ElibarWeb.Router do
 
   scope "/api", ElibarWeb do
     pipe_through :api
+
+    get "/beers", BeerController, :index
+    post "/beers", BeerController, :create
+    get "/beers/:id", BeerController, :show
+    put "/beers/:id", BeerController, :update
+    delete "/beers/:id", BeerController, :delete
+  end
+
+  scope "/", ElibarWeb do
+    pipe_through :api
   end
 
   # Enables LiveDashboard only for development

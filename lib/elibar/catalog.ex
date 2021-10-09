@@ -1,6 +1,8 @@
 defmodule Elibar.Catalog do
   use Ecto.Schema
   import Ecto.Changeset
+  require Logger
+  alias Elibar.Repo
 
   schema "beers" do
     field :beer, :string

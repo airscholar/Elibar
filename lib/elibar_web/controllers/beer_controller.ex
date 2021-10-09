@@ -1,6 +1,7 @@
 defmodule ElibarWeb.BeerController do
   use ElibarWeb, :controller
 
+  require Logger
   alias Elibar.Catalog
   alias Elibar.Catalog.Beer
 
@@ -11,7 +12,9 @@ defmodule ElibarWeb.BeerController do
     render(conn, "index.json", beers: beers)
   end
 
-  def create(conn, %{"beer" => beer_params}) do
+  def create(conn, beer_params) do
+    Logger.info(beer_params)
+
     with {:ok, %Beer{} = beer} <- Catalog.create_beer(beer_params) do
       conn
       |> put_status(:created)
@@ -21,6 +24,7 @@ defmodule ElibarWeb.BeerController do
   end
 
   def show(conn, %{"id" => id}) do
+    Logger.info(id)
     beer = Catalog.get_beer!(id)
     render(conn, "show.json", beer: beer)
   end
@@ -37,7 +41,7 @@ defmodule ElibarWeb.BeerController do
     beer = Catalog.get_beer!(id)
 
     with {:ok, %Beer{}} <- Catalog.delete_beer(beer) do
-      send_resp(conn, :no_content, "")
+      render(conn, "deleted.json", beer_id: id)
     end
   end
 end
