@@ -1,18 +1,18 @@
 defmodule ElibarWeb.Router do
   use ElibarWeb, :router
+  require Logger
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ElibarWeb do
+  scope "/api", ElibarWeb, as: :api do
     pipe_through :api
 
-    get "/beers", BeerController, :index
-    post "/beers", BeerController, :create
-    get "/beers/:id", BeerController, :show
-    put "/beers/:id", BeerController, :update
-    delete "/beers/:id", BeerController, :delete
+    scope "/v1", ElibarWeb, as: :v1 do
+      resources "/beers", BeerController, only: [:index, :show, :create, :update, :delete]
+    end
+
   end
 
   scope "/", ElibarWeb do
