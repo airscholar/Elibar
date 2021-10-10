@@ -6,13 +6,13 @@ defmodule ElibarWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ElibarWeb, as: :api do
+  scope "/api/v1", ElibarWeb, as: :api do
     pipe_through :api
 
-    scope "/v1", ElibarWeb, as: :v1 do
-      resources "/beers", BeerController, only: [:index, :show, :create, :update, :delete]
-    end
-
+    # scope "/v1", V1, as: :v1 do
+    # pipe_through :api
+    resources "/beers", BeerController, only: [:index, :show, :create, :update, :delete]
+    # end
   end
 
   scope "/", ElibarWeb do
